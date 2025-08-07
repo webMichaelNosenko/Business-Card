@@ -1,0 +1,18 @@
+@import "tailwindcss"; /* src/index.css */
+
+/*
+  Set the root container elements to be full-height.
+  This ensures that the React app's root div can fill the screen,
+  which is necessary for the vertical centering in App.jsx to work correctly.
+*/
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+  Inject Tailwind's base, component, and utility styles.
+*/
