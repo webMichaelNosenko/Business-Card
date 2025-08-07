@@ -3,7 +3,7 @@ import AnimatedBackground from './components/AnimatedBackground';
 import Portfolio from './components/Portfolio';
 import FloatingContactButtons from './components/FloatingContactButtons';
 import { useState, useEffect, useRef } from 'react';
-// import { useMediaQuery } from './hooks/useMediaQuery'; // Импортируем хук
+import { useMediaQuery } from './hooks/useMediaQuery'; // Импортируем хук
 
 // --- ЕДИНЫЙ ИСТОЧНИК ДАННЫХ ---
 const developerData = {
@@ -24,7 +24,7 @@ function App() {
     // Создаем ref'ы для обеих секций: верхней и портфолио
     const topRef = useRef(null);
     const portfolioRef = useRef(null);
-    // const isDesktop = useMediaQuery('(min-width: 768px)'); // Используем хук здесь
+    const isDesktop = useMediaQuery('(min-width: 768px)'); // Используем хук здесь
 
     // 3. Используем useEffect для добавления слушателя события скролла
     useEffect(() => {
@@ -67,21 +67,23 @@ function App() {
                 {/* Секция с визиткой */}
                 <section ref={topRef} className="relative min-h-screen flex items-center justify-center p-4">
                     <BusinessCard data={developerData} />
-                    <button
-                        onClick={handleScrollToggle}
-                        className={`absolute bottom-10 left-1/2 -translate-x-1/2 text-white opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300 z-10 ${!isScrolled ? 'animate-bounce' : ''}`}
-                        aria-label={isScrolled ? "Прокрутить вверх к началу" : "Прокрутить вниз к портфолио"}
-                    >
-                        {isScrolled ? (
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m15 11.25-3-3m0 0-3 3m3-3v7.5" />
-                            </svg>
-                        ) : (
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m9 12.75 3 3m0 0 3-3m-3 3v-7.5" />
-                            </svg>
-                        )}
+                    {isDesktop && (
+                        <button
+                            onClick={handleScrollToggle}
+                            className={`absolute bottom-10 left-1/2 -translate-x-1/2 text-white opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300 z-10 ${!isScrolled ? 'animate-bounce' : ''}`}
+                            aria-label={isScrolled ? "Прокрутить вверх к началу" : "Прокрутить вниз к портфолио"}
+                        >
+                            {isScrolled ? (
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m15 11.25-3-3m0 0-3 3m3-3v7.5" />
+                                </svg>
+                            ) : (
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m9 12.75 3 3m0 0 3-3m-3 3v-7.5" />
+                                </svg>
+                            )}
                     </button>
+                    )}
                 </section>
 
                 {/* Секция с портфолио */}
